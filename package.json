@@ -11,6 +11,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
+    "leader-line": "^1.0.7",
     "vue": "^2.7.14",
     "vue2-dragula": "^2.5.5",
     "vuedraggable": "^2.24.3"

@@ -1,3 +1,4 @@
+
 <template>
     <div id="container" style="width: 1300px;height: 700px;top:50px;left:50px;">
         <svg style="outline: solid 1px red; z-index: 999; position: absolute; left: 0px; pointer-events: none; visibility: hidden;" height="100%" width="100%">
@@ -41,10 +42,14 @@
   </template>
   
   <script>
+// import LeaderLine from 'leader-line';
+
 
   export default {
     data() {
         return {
+            lines: [],
+            activeElement: null,
             blockid: 1,
             blockArr: [
                 {   
@@ -81,6 +86,9 @@
 </svg>`,
             droppedBlock: [],
         }
+    },
+    mounted(){
+
     },
     methods: {
       move(divid, xpos, ypos) {
@@ -122,37 +130,22 @@
 
       },
       startArrow(evt, elem){
-        document.getElementsByTagName("svg")[0].style.visibility = "visible"
-        if (elem === "Input"){
-            // document.getElementById("container").innerHTML = this.arrowSvg + document.getElementById("container").innerHTML
-            const posX = evt.clientX
-            const posY = evt.clientY
-            this.$el.parentElement.style.cursor = "move";
-            document.getElementsByTagName("line")[0].x1.baseVal.value = posX - 55
-            document.getElementsByTagName("line")[0].y1.baseVal.value = posY - 50
-            document.getElementsByTagName("line")[0].x2.baseVal.value = posX - 55
-            document.getElementsByTagName("line")[0].y2.baseVal.value = posY - 50
-            document.onmousemove = (evt) => {
-                evt = evt || window.event;
-                const posX = evt.clientX;
-                const posY = evt.clientY;
-                document.getElementsByTagName("line")[0].x2.baseVal.value = posX - 55
-                document.getElementsByTagName("line")[0].y2.baseVal.value = posY - 50
-            };
-        }
-        if (elem === "Processing"){
-            const posX = evt.clientX
-            const posY = evt.clientY
-            this.$el.parentElement.style.cursor = "move";
-            document.getElementsByTagName("line")[0].x2.baseVal.value = posX - 55
-            document.getElementsByTagName("line")[0].y2.baseVal.value = posY - 50
-        }
+        /* eslint-disable no-undef */
+        console.log(elem)
+        console.log(evt)
+        this.line = new LeaderLine(
+        document.querySelector('#f1'),
+        document.querySelector('#f2'),
+        {
+            size: 5,
+            color: 'white'
+        })
 
       },
       stopArrow(elem) {
         console.log(elem)
         document.getElementById(elem).parentElement.style.cursor = "default";
-        document.onmousemove = () => {};
+        document.onmousemove = () => {}
 
       },
     },
