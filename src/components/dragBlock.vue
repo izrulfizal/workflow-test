@@ -1,6 +1,6 @@
 <template>
     <div id="container" style="width: 1300px;height: 700px;top:50px;left:50px;">
-        <!-- <svg style="outline: solid 1px red; z-index: 999; position: absolute; left: 0px; pointer-events: none; visibility: hidden;" height="100%" width="100%">
+        <svg style="outline: solid 1px red; z-index: 999; position: absolute; left: 0px; pointer-events: none; visibility: hidden;" height="100%" width="100%">
   <defs>
     <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="2" refY="6"
             orient="auto">
@@ -9,7 +9,7 @@
   </defs>
 
   <line x1="30" y1="190" x2="100" y2="200" class="arrow" />
-</svg> -->
+</svg>
       <div v-for="(block, index) in blockArr"
         :id="block.id"
         :key="index"
@@ -122,9 +122,9 @@
 
       },
       startArrow(evt, elem){
-        // document.getElementsByTagName("svg")[0].style.visibility = "visible"
+        document.getElementsByTagName("svg")[0].style.visibility = "visible"
         if (elem === "Input"){
-            document.getElementById("container").innerHTML = this.arrowSvg + document.getElementById("container").innerHTML
+            // document.getElementById("container").innerHTML = this.arrowSvg + document.getElementById("container").innerHTML
             const posX = evt.clientX
             const posY = evt.clientY
             this.$el.parentElement.style.cursor = "move";
