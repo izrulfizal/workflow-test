@@ -33,10 +33,10 @@
         style="width: 150px;height: 100px; position: absolute; top: 0px">
 
       </div>
-      <div class="knob kright" v-on:mousedown="startArrow($event, block.type)" v-on:mouseup="stopArrow(block.id, block.type, $event)" ></div>
-      <div class="knob kleft" v-on:mousedown="startArrow($event, block.type)" v-on:mouseup="stopArrow(block.id, block.type, $event)"></div>
-      <div class="knob ktop" v-on:mousedown="startArrow($event, block.type)" v-on:mouseup="stopArrow(block.id, block.type, $event)"></div>
-      <div class="knob kbottom" v-on:mousedown="startArrow($event, block.type)" v-on:mouseup="stopArrow(block.id, block.type, $event)"></div>
+      <div class="knob kright" v-on:mousedown="startArrow($event, block.id)" v-on:mouseup="stopArrow(block.id, block.type, $event)" ></div>
+      <div class="knob kleft" v-on:mousedown="startArrow($event, block.id)" v-on:mouseup="stopArrow(block.id, block.type, $event)"></div>
+      <div class="knob ktop" v-on:mousedown="startArrow($event, block.id)" v-on:mouseup="stopArrow(block.id, block.type, $event)"></div>
+      <div class="knob kbottom" v-on:mousedown="startArrow($event, block.id)" v-on:mouseup="stopArrow(block.id, block.type, $event)"></div>
       </div>
     </div>
   </template>
@@ -48,6 +48,7 @@
   export default {
     data() {
         return {
+            tempArrow: [],
             lines: [],
             activeElement: null,
             blockid: 1,
@@ -121,8 +122,10 @@
           if (aX + eWi > cWi) aX = cWi - eWi;
           if (aY + eHe > cHe) aY = cHe - eHe;
           this.move(document.getElementById(elem), aX, aY);
-          if (this.line){
-            this.line.position()
+          if (this.lines.length !== 0){
+            this.lines.forEach((line) => {
+                line.position()
+            })
           }
         };
       },
@@ -136,19 +139,34 @@
         /* eslint-disable no-undef */
         console.log(elem)
         console.log(evt)
-        this.line = new LeaderLine(
-        document.querySelector('#f1'),
-        document.querySelector('#f2'),
-        {
-            size: 5,
-            color: 'white'
-        })
+        // this.line = new LeaderLine(
+        // document.querySelector('#f1'),
+        // document.querySelector('#f2'),
+        // {
+        //     size: 5,
+        //     color: 'white'
+        // })
+        this.tempArrow.push(elem)
 
       },
       stopArrow(elem) {
-        console.log(elem)
+        // console.log(elem)
+        this.tempArrow.push(elem)
+        console.log(this.tempArrow)
+        if (this.tempArrow.length === 2){
+            this.line = new LeaderLine(
+            document.querySelector('#' + this.tempArrow[0]),
+            document.querySelector('#' + this.tempArrow[1]),
+            {
+                size: 5,
+                color: 'white'
+            })
+            this.tempArrow.length = 0
+            this.lines.push(this.line)
+        }
         document.getElementById(elem).parentElement.style.cursor = "default";
         document.onmousemove = () => {}
+
 
       },
     },
