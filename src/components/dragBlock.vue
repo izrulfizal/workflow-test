@@ -121,6 +121,9 @@
           if (aX + eWi > cWi) aX = cWi - eWi;
           if (aY + eHe > cHe) aY = cHe - eHe;
           this.move(document.getElementById(elem), aX, aY);
+          if (this.line){
+            this.line.position()
+          }
         };
       },
       stopMoving(elem) {
